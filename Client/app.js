@@ -24,3 +24,32 @@
 
     $('#my-form').submit( processForm );
 })(jQuery);
+
+
+$(document).ready(getAllMovies);
+
+function getAllMovies(){
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'https://localhost:44325/api/movie',
+        success: function() {
+            $('#MovieTable').html('');
+        },
+    })
+    .then(function(data){
+        $.each(data, function(index, value){
+            $('#MovieTable').append(
+                `
+                <tr>
+                    <td>${value.title}</td>
+                    <td>${value.genre}</td>
+                    <td>${value.director}</td>
+                </tr>
+                `
+            )
+        })
+    })
+}
+
