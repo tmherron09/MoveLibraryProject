@@ -22,21 +22,16 @@ namespace WebAPISample.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            // Retrieve all movies from db logic
-
             var movies = _context.Movies.ToList();
-
-            return Ok(movies);
-            
+            return Ok(movies);           
         }
 
         // GET api/movie/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            // Retrieve movie by id from db logic
-            // return Ok(movie);
-            return Ok();
+            var movieId = _context.Movies.Where(m => m.MovieId == id);
+            return Ok(movieId);
         }
 
         // POST api/movie
