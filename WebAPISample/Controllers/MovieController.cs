@@ -36,11 +36,23 @@ namespace WebAPISample.Controllers
 
         // POST api/movie
         [HttpPost]
-        public IActionResult Post([FromBody]Movie value)
+        public IActionResult Post([FromBody] Movie value)
         {
             // Create movie in db logic
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            
+
+            _context.Movies.Add(value);
+            _context.SaveChanges();
+
             return Ok();
         }
+
+            
 
         // PUT api/movie
         [HttpPut]
