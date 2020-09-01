@@ -56,9 +56,16 @@ namespace WebAPISample.Controllers
 
         // PUT api/movie
         [HttpPut]
-        public IActionResult Put([FromBody] Movie movie)
+        public IActionResult Put([FromBody] Movie updatedMovie)
         {
             // Update movie in db logic
+            Movie movie = _context.Movies.Where(m  =>  m.MovieId == updatedMovie.MovieId).FirstOrDefault();
+            movie.Title = updatedMovie.Title;
+            movie.Genre = updatedMovie.Genre;
+            movie.Director = updatedMovie.Director;
+            _context.SaveChanges();
+
+
             return Ok();
         }
 
