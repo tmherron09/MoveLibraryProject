@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using WebAPISample.Data;
 using WebAPISample.Models;
 
@@ -22,7 +26,7 @@ namespace WebAPISample.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var movies = _context.Movies.ToList();
+            var movies = _context.Movies.Include(m => m.PosterImage).ToList();
             return Ok(movies);           
         }
 
@@ -30,13 +34,15 @@ namespace WebAPISample.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var movieId = _context.Movies.Where(m => m.MovieId == id);
-            return Ok(movieId);
+            var movie = _context.Movies.Where(m => m.MovieId == id).Include(m => m.PosterImage).SingleOrDefault();
+
+
+            return Ok(movie);
         }
 
         // POST api/movie
         [HttpPost]
-        public IActionResult Post([FromBody] Movie value)
+        public async Task<IActionResult> Post([FromBody] Movie value)
         {
             // Create movie in db logic
             if (!ModelState.IsValid)
@@ -44,15 +50,46 @@ namespace WebAPISample.Controllers
                 return BadRequest();
             }
 
-            
+            PosterImage newPoster = new PosterImage();
+            value.PosterImageId = await GetMoviePoster(value, newPoster);
+
+
+
 
             _context.Movies.Add(value);
             _context.SaveChanges();
 
-            return Ok();
+            Movie insertedMovie = _context.Movies.OrderByDescending(m => m.MovieId).Include(m=> m.PosterImage).First();
+
+            return Ok(insertedMovie);
         }
 
-            
+        private async Task<int> GetMoviePoster(Movie movie, PosterImage posterImage)
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "imdb-internet-movie-database-unofficial.p.rapidapi.com");
+            client.DefaultRequestHeaders.Add("X-RapidAPI-Key", "***REMOVED***");
+
+            string query = HttpUtility.UrlEncode(movie.Title);
+            Uri posterRequest = new Uri("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/" + query);
+
+            var response = await client.GetAsync(posterRequest);
+
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            JObject jsonString = JObject.Parse(content);
+            string imageUrl = jsonString["poster"].ToString();
+
+            posterImage.PosterLink = imageUrl;
+
+            _context.PosterImages.Add(posterImage);
+            _context.SaveChanges();
+
+            var last = _context.PosterImages.OrderByDescending(p => p.PosterImageId).First();
+            return last.PosterImageId;
+        }
+
 
         // PUT api/movie
         [HttpPut]
