@@ -1,12 +1,10 @@
 $(document).ready(function () {
 
-
-
     getAllMovies();
-
 
 });
 
+let storedData = [];
     
 (function ($) {
     function processForm( e ){
@@ -50,7 +48,9 @@ function getAllMovies(){
         },
     })
     .then(function(data){
-        $.each(data, function(index, value){                
+        storedData = data;
+
+        $.each(storedData, function(index, value){                
             $("#movieCardContainer").append(
                 `
                 <div id="${value.movieId}" class="col-md-6">
@@ -67,7 +67,7 @@ function getAllMovies(){
                         </div>
                         
                         <div class="col-4 d-none d-lg-block">
-                        <img src="" class="img-fluid" alt="movie poster for ${value.title}">
+                        <img src="${value.posterImage.posterLink}" class="img-fluid" alt="movie poster for ${value.title}">
                         </div>
                     </div>
                 </div>
@@ -95,29 +95,47 @@ function getMovieById(id) {
     })
 }
 
+function getMovieByIdLocal(id) {
+    let movie = storedData.filter(function (value) {
+
+        if (value.movieId == id) {
+            return true;
+        }
+        return false;
+    })
+
+    return movie[0];
+}
+
+
+
 async function processEditMovieForm(e) {
     var dataObj = {
-        movieId : parseInt(this["movieId"].value),
+        movieId: parseInt(this["movieId"].value),
         title: this["title"].value,
         genre: this["genre"].value,
-        director: this["director"].value
+        director: this["director"].value,
+        posterImage: null,
+        posterImageId: null
     }
     var outgoing = JSON.stringify(dataObj);
 
     e.preventDefault();
     await jQuery.ajax({
-        url: 'https://localhost:44325/api/movie',
-            type: 'PUT',
-            contentType: 'application/json',
-            data: outgoing,
-            success: function (data, textStatus, jQxhr) {
-                $('#response pre').html("Movie Successfully Edited!");
-            },
-            error: function (jqXhr, textStatus, errorThrown) {
+        url: 'http://71.11.153.207:9000/api/movie',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: outgoing,
+        success: function (data, textStatus, jQxhr) {
+            $('#response pre').html("Movie Successfully Edited!");
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
 
-                console.log(errorThrown);
-            }
+            console.log(errorThrown);
+        }
     })
+
     getAllMovies();
+
 }
 
