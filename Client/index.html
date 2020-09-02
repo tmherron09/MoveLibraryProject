@@ -6,44 +6,61 @@
     <link rel="stylesheet" type="text/css" href="animation.css">
 
 
-<head>
-    <title>Best Movie Database Search</title>
-    <meta charset="utf-8">
-</head>
-<body>
+    <head>
+        <title>Best Movie Database Search</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
 
-<h1><center> Welcome to the Largest Internet Database for Movies </center></h1>
+        <h1>
+            <center>
+                Welcome to the Largest Internet Database for Movies
+            </center>
+        </h1>
 
-<div id="response">
-    <pre></pre>
-</div>
+        <div id="response">
+            <pre></pre>
+        </div>
 
-<div id="searchWrapper">
-    <input
-        type="text"
-        name="searchBar"
-        id="searchBar"
-        placeholder="search for a movie"
-    />
-    <button onclick=" "> Search </button>
-</div>
-<p></p>
-<form id="my-form">
-    <input type="text" name="title" placeholder="Title" />
-    <input type="text" name="director" placeholder="Director" />
-    <input type="text" name="genre" placeholder="Genre" />    
-    <button type="submit">Add a new movie</button>
-</form>
+        <div class="container my-5">
+            <div class="row">
+                <div class="card mx-auto w-75">
+                    <div id="searchWrapper" class="m-3">
+                        <input type="text" name="searchBar" id="searchBar" placeholder="search for a movie"/>
+                        <button onclick=" ">
+                            Search
+                        </button>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container my-5">
+            <div class="row">
+                <div class="card mx-auto">
+                    <div class="card-hear py-3 text-center">
+                        Add New Movie
+                    </div>
+                    <hr/>
+                    <div class="card-body">
+                        <form id="my-form">
+                            <input type="text" name="title" placeholder="Title"/>
+                            <input type="text" name="director" placeholder="Director"/>
+                            <input type="text" name="genre" placeholder="Genre"/>
+                            <button type="submit">Add a new movie</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="movieCardContainer" class="row"></div>
+        </div>
 
 
-
-<div class="container">
-    <div id="movieCardContainer" class="row">
-    </div>
-</div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="./app.js"></script>
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="./app.js"></script>
+    </body>
 </html>

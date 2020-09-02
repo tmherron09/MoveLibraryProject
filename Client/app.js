@@ -5,54 +5,104 @@ $(document).ready(function () {
 });
 
 let storedData = [];
-    
+
 (function ($) {
-    function processForm( e ){
+    async function processForm(e) {
         var dict = {
-        	Title : this["title"].value,
+            Title: this["title"].value,
             Director: this["director"].value,
             Genre: this["genre"].value
         };
 
-        $.ajax({
-            url: 'https://localhost:44325/api/movie',
+        e.preventDefault();
+        let scrollRef;
+
+        await $.ajax({
+            url: 'http://71.11.153.207:9000/api/movie',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
             data: JSON.stringify(dict),
-            success: function( data, textStatus, jQxhr ){
-                $('#response pre').html( data );
+            success: function (data, textStatus, jQxhr) {
+                $('#response pre').html(data);
             },
-            error: function( jqXhr, textStatus, errorThrown ){
-                console.log( errorThrown );
+            error: function (jqXhr, textStatus, errorThrown) {
+                console.log(errorThrown);
             }
-        });
+        }).then(function(data) {
+            storedData.push(data);
+            scrollRef = data.movieId;
+            displayCards();
+        })
 
-        e.preventDefault();
+        window.scrollTo(0,document.body.scrollHeight);
     }
 
-    $('#my-form').submit( processForm );
+    $('#my-form').submit(processForm);
 })(jQuery);
 
 
+function displayCards() {
+    $('#MovieTable').html('');
+    $.each(storedData, function (index, value) {
+        let posterUrl = "poster_dumby.jpg"
+        if (value.posterImage) {
+            posterUrl = value.posterImage.posterLink;
+        }
+
+        $("#movieCardContainer").append(
+            `
+        <div id="${value.movieId}" class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                
+            <div class="col-8 p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">${value.genre}</strong>
+                <h3 class="mb-0">${value.title}</h3>
+                    
+                <div class="mb-1 text-muted">${value.director}</div>
+
+                <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                <button onclick="editmovie(${value.movieId})" class="btn-primary">View details</a>
+                </div>
+                
+                <div class="col-4 d-none d-lg-block">
+                <img src="${posterUrl}" class="img-fluid" alt="movie poster for ${value.title}">
+                </div>
+            </div>
+        </div>
+        `
+        )
+    }
+    )
 
 
-function getAllMovies(){
+}
+
+
+
+function getAllMovies() {
 
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'https://localhost:44325/api/movie',
-        success: function() {
+        url: 'http://71.11.153.207:9000/api/movie',
+        success: function () {
             $('#MovieTable').html('');
         },
     })
-    .then(function(data){
-        storedData = data;
+        .then(function (data) {
+            storedData = data;
 
-        $.each(storedData, function(index, value){                
-            $("#movieCardContainer").append(
-                `
+
+
+            $.each(storedData, function (index, value) {
+                let posterUrl = "poster_dumby.jpg"
+                if (value.posterImage) {
+                    posterUrl = value.posterImage.posterLink;
+                }
+
+                $("#movieCardContainer").append(
+                    `
                 <div id="${value.movieId}" class="col-md-6">
                     <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         
@@ -67,30 +117,31 @@ function getAllMovies(){
                         </div>
                         
                         <div class="col-4 d-none d-lg-block">
-                        <img src="${value.posterImage.posterLink}" class="img-fluid" alt="movie poster for ${value.title}">
+                        <img src="${posterUrl}" class="img-fluid" alt="movie poster for ${value.title}">
                         </div>
                     </div>
                 </div>
                 `
+                )
+            }
             )
-        }
-        )})
-    }
-                
-    
+        })
+}
+
+
 
 function getMovieById(id) {
     return $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'https://localhost:44325/api/movie/' + id,
+        url: 'http://71.11.153.207:9000/api/movie' + id,
         success: function () {
             console.log("GET id Success.");
         },
-        error: function() {
+        error: function () {
             console.log("GET id failed.");
         }
-    }).then(function(data) {
+    }).then(function (data) {
         return data[0];
     })
 }
