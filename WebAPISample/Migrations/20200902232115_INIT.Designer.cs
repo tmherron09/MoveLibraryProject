@@ -10,8 +10,8 @@ using WebAPISample.Data;
 namespace WebAPISample.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200902221628_SeedPosters")]
-    partial class SeedPosters
+    [Migration("20200902232115_INIT")]
+    partial class INIT
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,7 @@ namespace WebAPISample.Migrations
                             MovieId = 5,
                             Director = "John McTiernan",
                             Genre = "Action",
+                            PosterImageId = 5,
                             Title = "Die Hard"
                         },
                         new
@@ -91,6 +92,7 @@ namespace WebAPISample.Migrations
                             MovieId = 6,
                             Director = "Takashii Miike",
                             Genre = "Suspense",
+                            PosterImageId = 6,
                             Title = "Audition"
                         },
                         new
@@ -98,6 +100,7 @@ namespace WebAPISample.Migrations
                             MovieId = 7,
                             Director = "Takashii Miike",
                             Genre = "Musical",
+                            PosterImageId = 7,
                             Title = "Happieness of the Katakuri"
                         },
                         new
@@ -105,6 +108,7 @@ namespace WebAPISample.Migrations
                             MovieId = 8,
                             Director = "Eric Till",
                             Genre = "Comedy",
+                            PosterImageId = 8,
                             Title = "Red Green: Duct Tape Forever"
                         },
                         new
@@ -112,6 +116,7 @@ namespace WebAPISample.Migrations
                             MovieId = 9,
                             Director = "Norman Jewison",
                             Genre = "Comedy",
+                            PosterImageId = 9,
                             Title = "Send Me No Flowers"
                         },
                         new
@@ -119,6 +124,7 @@ namespace WebAPISample.Migrations
                             MovieId = 10,
                             Director = "Joe Johnston",
                             Genre = "Action",
+                            PosterImageId = 10,
                             Title = "Captain America: The First Avenger"
                         },
                         new
@@ -126,6 +132,7 @@ namespace WebAPISample.Migrations
                             MovieId = 11,
                             Director = "Johnathan Lynn",
                             Genre = "Comedy",
+                            PosterImageId = 11,
                             Title = "Clue"
                         },
                         new
@@ -133,6 +140,7 @@ namespace WebAPISample.Migrations
                             MovieId = 12,
                             Director = "Stanley Donen",
                             Genre = "Comedy",
+                            PosterImageId = 12,
                             Title = "The Grass is Greener"
                         },
                         new
@@ -140,6 +148,7 @@ namespace WebAPISample.Migrations
                             MovieId = 13,
                             Director = "JBlake Edwards",
                             Genre = "Comedy",
+                            PosterImageId = 13,
                             Title = "Operation Petticoat"
                         },
                         new
@@ -147,6 +156,7 @@ namespace WebAPISample.Migrations
                             MovieId = 14,
                             Director = "Adam Mckay",
                             Genre = "Comedy",
+                            PosterImageId = 14,
                             Title = "Step Brothers"
                         },
                         new
@@ -154,6 +164,7 @@ namespace WebAPISample.Migrations
                             MovieId = 15,
                             Director = "Kar-Wai Wong",
                             Genre = "Comedy",
+                            PosterImageId = 15,
                             Title = "Fallen Angels"
                         });
                 });
@@ -195,6 +206,61 @@ namespace WebAPISample.Migrations
                         {
                             PosterImageId = 4,
                             PosterLink = "https://m.media-amazon.com/images/M/MV5BMTY1MTE4NzAwM15BMl5BanBnXkFtZTcwNzg3Mjg2MQ@@.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 5,
+                            PosterLink = "https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Die_hard.jpg/220px-Die_hard.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 6,
+                            PosterLink = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQDYhcR0JMTbmMm_mWMWz0TLiWoQVID1OzxFpeNJFdwWeXaFfCi"
+                        },
+                        new
+                        {
+                            PosterImageId = 7,
+                            PosterLink = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRJgAtTCY5coGTbYcV7u7mAhOF3AnqAjNgQ5p1F4U2zPgHM7OWL"
+                        },
+                        new
+                        {
+                            PosterImageId = 8,
+                            PosterLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSApgxdRebrwCpfIuOfEgnt-2Z9dpzmL1AbfNL-URRMHT61sR0s"
+                        },
+                        new
+                        {
+                            PosterImageId = 9,
+                            PosterLink = "https://images-na.ssl-images-amazon.com/images/I/91BzjcKK2LL._SX300_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 10,
+                            PosterLink = "https://images-na.ssl-images-amazon.com/images/I/71GFtflAraL._SX342_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 11,
+                            PosterLink = "https://m.media-amazon.com/images/I/71ubsh+w3SL._AC_UY218_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 12,
+                            PosterLink = "https://images-na.ssl-images-amazon.com/images/I/81CtYSap47L._SX300_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 13,
+                            PosterLink = "https://images-na.ssl-images-amazon.com/images/I/711v2xMuaGL._SX300_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 14,
+                            PosterLink = "https://images-na.ssl-images-amazon.com/images/I/81SGtfOBoSL._SY445_.jpg"
+                        },
+                        new
+                        {
+                            PosterImageId = 15,
+                            PosterLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTm4JbHKXxlyPZiBwzBwQVmHq91tX9OuyvHbgDuhvODcHgZcyBN"
                         });
                 });
 
