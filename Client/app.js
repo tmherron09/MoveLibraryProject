@@ -1,4 +1,14 @@
-(function($){
+$(document).ready(function () {
+
+
+
+    getAllMovies();
+
+
+});
+
+    
+(function ($) {
     function processForm( e ){
         var dict = {
         	Title : this["title"].value,
@@ -27,7 +37,7 @@
 })(jQuery);
 
 
-$(document).ready(getAllMovies);
+
 
 function getAllMovies(){
 
@@ -54,3 +64,44 @@ function getAllMovies(){
     })
 }
 
+function getMovieById(id) {
+    return $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'http://71.11.153.207:9000/api/movie/' + id,
+        success: function () {
+            console.log("GET id Success.");
+        },
+        error: function() {
+            console.log("GET id failed.");
+        }
+    }).then(function(data) {
+        return data[0];
+    })
+}
+
+async function processEditMovieForm(e) {
+    var dataObj = {
+        movieId : parseInt(this["movieId"].value),
+        title: this["title"].value,
+        genre: this["genre"].value,
+        director: this["director"].value
+    }
+    var outgoing = JSON.stringify(dataObj);
+
+    e.preventDefault();
+    await jQuery.ajax({
+        url: 'http://71.11.153.207:9000/api/movie',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: outgoing,
+            success: function (data, textStatus, jQxhr) {
+                $('#response pre').html("Movie Successfully Edited!");
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+
+                console.log(errorThrown);
+            }
+    })
+    getAllMovies();
+}
