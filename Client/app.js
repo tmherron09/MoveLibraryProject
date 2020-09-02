@@ -29,13 +29,13 @@ let storedData = [];
             error: function (jqXhr, textStatus, errorThrown) {
                 console.log(errorThrown);
             }
-        }).then(function(data) {
+        }).then(function (data) {
             storedData.push(data);
             scrollRef = data.movieId;
             displayCards();
         })
 
-        window.scrollTo(0,document.body.scrollHeight);
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     $('#my-form').submit(processForm);
@@ -43,7 +43,7 @@ let storedData = [];
 
 
 function displayCards() {
-    $('#MovieTable').html('');
+    $('#movieCardContainer').html('');
     $.each(storedData, function (index, value) {
         let posterUrl = "poster_dumby.jpg"
         if (value.posterImage) {
@@ -74,9 +74,99 @@ function displayCards() {
         )
     }
     )
+}
 
+function sortCards(sortMethod) {
+    storedData = sortMethod();
+    displayCards();
+}
+
+
+// Sort Movies by Title Alphabetically/Reverse
+function sortTitleAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.title < b.title) { return -1; }
+        if (a.title > b.title) { return 1; }
+        return 0;
+    });
+    return data;
+}
+
+function sortTitleReverseAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.title > b.title) { return -1; }
+        if (a.title < b.title) { return 1; }
+        return 0;
+    });
+    return data;
 
 }
+
+
+
+function sortTitleAlpha() {
+    if ($('#alpha-title').css("display") == "inline") {
+        sortCards(sortTitleAlphabetically);
+        $('#alpha-title').css('display', 'none');
+        $('#reverse-alpha-title').css('display', 'inline');
+    }
+    else {
+        sortCards(sortTitleReverseAlphabetically);
+        $('#reverse-alpha-title').css('display', 'none');
+        $('#alpha-title').css('display', 'inline');
+    }
+}
+
+$('#alpha-title').click(function(){
+    sortCards(sortTitleAlpha);
+} );
+$('#reverse-alpha-title').click(function(){
+    sortCards(sortTitleReverseAlphabetically);
+} );
+
+// Sort Movies by Genre Alphabetically/Reverse
+function sortTitleAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.title < b.title) { return -1; }
+        if (a.title > b.title) { return 1; }
+        return 0;
+    });
+    return data;
+}
+
+function sortTitleReverseAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.title > b.title) { return -1; }
+        if (a.title < b.title) { return 1; }
+        return 0;
+    });
+    return data;
+
+}
+
+function sortGenreAlpha() {
+    if ($('#alpha-title').css("display") == "inline") {
+        sortCards(sortTitleAlphabetically);
+        $('#alpha-title').css('display', 'none');
+        $('#reverse-alpha-title').css('display', 'inline');
+    }
+    else {
+        sortCards(sortTitleReverseAlphabetically);
+        $('#reverse-alpha-title').css('display', 'none');
+        $('#alpha-title').css('display', 'inline');
+    }
+}
+
+//$('#alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
+//$('#reverse-alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
+
+
+
+
 
 
 
@@ -93,38 +183,8 @@ function getAllMovies() {
         .then(function (data) {
             storedData = data;
 
+            sortCards(sortTitleAlphabetically);
 
-
-            $.each(storedData, function (index, value) {
-                let posterUrl = "poster_dumby.jpg"
-                if (value.posterImage) {
-                    posterUrl = value.posterImage.posterLink;
-                }
-
-                $("#movieCardContainer").append(
-                    `
-                <div id="${value.movieId}" class="col-md-6">
-                    <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                        
-                    <div class="col-8 p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">${value.genre}</strong>
-                        <h3 class="mb-0">${value.title}</h3>
-                            
-                        <div class="mb-1 text-muted">${value.director}</div>
-
-                        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                        <button onclick="editmovie(${value.movieId})" class="btn-primary">View details</a>
-                        </div>
-                        
-                        <div class="col-4 d-none d-lg-block">
-                        <img src="${posterUrl}" class="img-fluid" alt="movie poster for ${value.title}">
-                        </div>
-                    </div>
-                </div>
-                `
-                )
-            }
-            )
         })
 }
 

@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="bootstrap-sketchy.css">
     <link rel="stylesheet" type="text/css" href="animation.css">
+    <link rel="stylesheet" type="text/css" href="css/solid.css">
 
 
     <head>
@@ -54,8 +55,28 @@
                 </div>
             </div>
         </div>
-
         <div class="container">
+            <div class="mx-auto" style=" -webkit-user-select: none;
+            -ms-user-select: none";
+            user-select: none;>
+                <label>Sort By:</label>
+                <span id="alpha-title" style="display: inline;">
+                    Title
+                    <i class="fas fa-sort-alpha-down fa-lg"></i>
+                </span>
+                <span id="reverse-alpha-title" style="display: inline ;">
+                    Title
+                    <i class="fas fa-sort-alpha-up-alt fa-lg"></i>
+                </span>
+                <span id="alpha-genre" style="display: none;">
+                    Genre
+                    <i class="fas fa-sort-alpha-down fa-lg"></i>
+                </span>
+                <span id="reverse-alpha-genre" style="display: inline ;">
+                    Genre
+                    <i class="fas fa-sort-alpha-up-alt fa-lg"></i>
+                </span>
+            </div>
             <div id="movieCardContainer" class="row"></div>
         </div>
 
