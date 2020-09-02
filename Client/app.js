@@ -18,7 +18,7 @@ let storedData = [];
         let scrollRef;
 
         await $.ajax({
-            url: 'http://71.11.153.207:9000/api/movie',
+            url: 'https://localhost:44325/api/movie',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -85,7 +85,7 @@ function getAllMovies() {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'http://71.11.153.207:9000/api/movie',
+        url: 'https://localhost:44325/api/movie',
         success: function () {
             $('#MovieTable').html('');
         },
@@ -134,7 +134,7 @@ function getMovieById(id) {
     return $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'http://71.11.153.207:9000/api/movie' + id,
+        url: 'https://localhost:44325/api/movie' + id,
         success: function () {
             console.log("GET id Success.");
         },
@@ -173,7 +173,7 @@ async function processEditMovieForm(e) {
 
     e.preventDefault();
     await jQuery.ajax({
-        url: 'http://71.11.153.207:9000/api/movie',
+        url: 'https://localhost:44325/api/movie',
         type: 'PUT',
         contentType: 'application/json',
         data: outgoing,
