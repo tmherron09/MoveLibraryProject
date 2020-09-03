@@ -105,6 +105,10 @@ namespace WebAPISample.Controllers
             movieToUpdate.Director = (updatedMovie.Director == "" || updatedMovie.Director == null) ? movieToUpdate.Director : updatedMovie.Director;
             movieToUpdate.Genre = (updatedMovie.Genre == "" || updatedMovie.Genre == null) ? movieToUpdate.Genre : updatedMovie.Genre;
             movieToUpdate.PosterImageId = (updatedMovie.PosterImageId == null) ? movieToUpdate.PosterImageId : updatedMovie.PosterImageId;
+            movieToUpdate.PlotSynop = (updatedMovie.PlotSynop == null) ? movieToUpdate.PlotSynop : updatedMovie.PlotSynop;
+
+            PosterImage poster = _context.PosterImages.Where(p => p.PosterImageId == movieToUpdate.PosterImageId).SingleOrDefault();
+            poster.PosterLink = (updatedMovie.PosterImage.PosterLink == null) ? movieToUpdate.PosterImage.PosterLink : updatedMovie.PosterImage.PosterLink;
 
             _context.SaveChanges();
 

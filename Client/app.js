@@ -142,7 +142,7 @@ function displaySearchCards(filteredMovies) {
 
         $("#movieCardContainer").append(
             `
-        <div id="${value.movieId}" class="col-md-6">
+        <div id="${value.movieId}" class="col-md-6 ">
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 
             <div class="col-8 p-4 d-flex flex-column position-static">
@@ -219,21 +219,21 @@ $('#reverse-alpha-title').click(function () {
 });
 
 // Sort Movies by Genre Alphabetically/Reverse
-function sortTitleAlphabetically() {
+function sortGenreAlphabetically() {
 
     let data = storedData.sort(function (a, b) {
-        if (a.title < b.title) { return -1; }
-        if (a.title > b.title) { return 1; }
+        if (a.genre < b.genre) { return -1; }
+        if (a.genre > b.genre) { return 1; }
         return 0;
     });
     return data;
 }
 
-function sortTitleReverseAlphabetically() {
+function sortGenreReverseAlphabetically() {
 
     let data = storedData.sort(function (a, b) {
-        if (a.title > b.title) { return -1; }
-        if (a.title < b.title) { return 1; }
+        if (a.genre > b.genre) { return -1; }
+        if (a.genre < b.genre) { return 1; }
         return 0;
     });
     return data;
@@ -253,10 +253,42 @@ function sortGenreAlpha() {
     }
 }
 
-$('#alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
-$('#reverse-alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
+$('#alpha-genre').click(function () {
+    sortCards(sortGenreAlphabetically);
+});
+$('#reverse-alpha-genre').click(function () {
+    sortCards(sortGenreReverseAlphabetically);
+});
+
+// Sort Movies by Director Alphabetically/Reverse
+function sortDirectorAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.director < b.director) { return -1; }
+        if (a.director > b.director) { return 1; }
+        return 0;
+    });
+    return data;
+}
+
+function sortDirectorReverseAlphabetically() {
+
+    let data = storedData.sort(function (a, b) {
+        if (a.director > b.director) { return -1; }
+        if (a.director < b.director) { return 1; }
+        return 0;
+    });
+    return data;
+
+}
 
 
+$('#alpha-director').click(function () {
+    sortCards(sortDirectorAlphabetically);
+});
+$('#reverse-alpha-director').click(function () {
+    sortCards(sortDirectorReverseAlphabetically);
+});
 
 
 
@@ -354,6 +386,8 @@ function editMovie(id) {
             <input type="text" name="genre" placeholder="${movie.genre}" value="${movie.genre}" class="form-control py-2"/>
             <label>Plot Synopsis</label>
             <input type="text" name="plotSynop" placeholder="${movie.plotSynop}" value="${movie.plotSynop}" class="form-control py-2"/>
+            <label>Poster Link</label>
+            <input type="text" name="posterLink" placeholder="${movie.posterImage.posterLink}" value="${movie.posterImage.posterLink}" class="form-control py-2"/>
             <button type="submit">Update Movie</button>
         </form>
         `
@@ -374,7 +408,9 @@ async function processEditMovieForm(e) {
         genre: this["genre"].value,
         director: this["director"].value,
         plotSynop: this["plotSynop"].value,
-        posterImage: null,
+        posterImage: {
+            posterLink: this["posterLink"].value
+        },
         posterImageId: null
     }
     var outgoing = JSON.stringify(dataObj);

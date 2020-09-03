@@ -37,20 +37,21 @@ namespace WebAPISample.Data
             modelBuilder.Entity<Movie>()
              .HasData(
                 new Movie { MovieId = 1, Title = "The Departed", Genre = "Drama", Director = "Martin Scorsese", PosterImageId = 1, PlotSynop = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O." },
-                new Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan", PosterImageId = 2 },
-                new Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan", PosterImageId = 3 },
-                new Movie { MovieId = 4, Title = "Pineapple Express", Genre = "Comedy", Director = "David Gordon Green", PosterImageId = 4 },
-                new Movie { MovieId = 5, Title = "Die Hard", Genre = "Action", Director = "John McTiernan", PosterImageId = 5 },
-                new Movie { MovieId = 6, Title = "Audition", Genre = "Suspense", Director = "Takashii Miike", PosterImageId = 6 },
-                new Movie { MovieId = 7, Title = "Happieness of the Katakuri", Genre = "Musical", Director = "Takashii Miike", PosterImageId = 7 },
-                new Movie { MovieId = 8, Title = "Red Green: Duct Tape Forever", Genre = "Comedy", Director = "Eric Till", PosterImageId = 8 },
-                new Movie { MovieId = 9, Title = "Send Me No Flowers", Genre = "Comedy", Director = "Norman Jewison", PosterImageId = 9 },
-                new Movie { MovieId = 10, Title = "Captain America: The First Avenger", Genre = "Action", Director = "Joe Johnston", PosterImageId = 10 },
-                new Movie { MovieId = 11, Title = "Clue", Genre = "Comedy", Director = "Johnathan Lynn", PosterImageId = 11},
-                new Movie { MovieId = 12, Title = "The Grass is Greener", Genre = "Comedy", Director = "Stanley Donen", PosterImageId = 12},
-                new Movie { MovieId = 13, Title = "Operation Petticoat", Genre = "Comedy", Director = "JBlake Edwards", PosterImageId = 13},
-                new Movie { MovieId = 14, Title = "Step Brothers", Genre = "Comedy", Director = "Adam Mckay", PosterImageId = 14},
-                new Movie { MovieId = 15, Title = "Fallen Angels", Genre = "Comedy", Director = "Kar-Wai Wong", PosterImageId = 15}
+                new Movie { MovieId = 2, Title = "The Dark Knight", Genre = "Drama", Director = "Christopher Nolan", PosterImageId = 2, PlotSynop = "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice." },
+                new Movie { MovieId = 3, Title = "Inception", Genre = "Drama", Director = "Christopher Nolan", PosterImageId = 3, PlotSynop = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
+                },
+                new Movie { MovieId = 4, Title = "Pineapple Express", Genre = "Comedy", Director = "David Gordon Green", PosterImageId = 4, PlotSynop = "A process server and his marijuana dealer wind up on the run from hitmen and a corrupt police officer after he witnesses his dealer's boss murder a competitor while trying to serve papers on him." },
+                new Movie { MovieId = 5, Title = "Die Hard", Genre = "Action", Director = "John McTiernan", PosterImageId = 5, PlotSynop = "An NYPD officer tries to save his wife and several others taken hostage by German terrorists during a Christmas party at the Nakatomi Plaza in Los Angeles." },
+                new Movie { MovieId = 6, Title = "Audition", Genre = "Suspense", Director = "Takashii Miike", PosterImageId = 6, PlotSynop = "A widower takes an offer to screen girls at a special audition, arranged for him by a friend to find him a new wife. The one he fancies is not who she appears to be after all."  },
+                new Movie { MovieId = 7, Title = "Happieness of the Katakuri", Genre = "Musical", Director = "Takashii Miike", PosterImageId = 7, PlotSynop = "A family moves to the country to run a rustic mountain inn when, to their horror, the customers begin befalling sudden and unlikely fates." },
+                new Movie { MovieId = 8, Title = "Red Green: Duct Tape Forever", Genre = "Comedy", Director = "Eric Till", PosterImageId = 8, PlotSynop = "The residents of Possum Lodge head on a road trip to the States, hoping to win a contest and thus pay a fine." },
+                new Movie { MovieId = 9, Title = "Send Me No Flowers", Genre = "Comedy", Director = "Norman Jewison", PosterImageId = 9, PlotSynop = "A hypochondriac believes he is dying and makes plans for his wife which she discovers and misunderstands." },
+                new Movie { MovieId = 10, Title = "Captain America: The First Avenger", Genre = "Action", Director = "Joe Johnston", PosterImageId = 10, PlotSynop = "Steve Rogers, a rejected military soldier transforms into Captain America after taking a dose of a \"Super - Soldier serum\". But being Captain America comes at a price as he attempts to take down a war monger and a terrorist organization." },
+                new Movie { MovieId = 11, Title = "Clue", Genre = "Comedy", Director = "Johnathan Lynn", PosterImageId = 11, PlotSynop = "Six guests are anonymously invited to a strange mansion for dinner, but after their host is killed, they must cooperate with the staff to identify the murderer as the bodies pile up." },
+                new Movie { MovieId = 12, Title = "The Grass is Greener", Genre = "Comedy", Director = "Stanley Donen", PosterImageId = 12, PlotSynop = "Victor and Hillary are down on their luck to the point that they allow tourists to take guided tours of their castle. But Charles Delacro, a millionaire oil tycoon, visits, and takes a liking to more than the house. Soon, Hattie Durant gets involved and they have a good old fashioned love triangle." },
+                new Movie { MovieId = 13, Title = "Operation Petticoat", Genre = "Comedy", Director = "JBlake Edwards", PosterImageId = 13, PlotSynop = "During World War II, a commander finds himself stuck with a decrepit (and pink) submarine, a con man executive officer, and a group of army nurses." },
+                new Movie { MovieId = 14, Title = "Step Brothers", Genre = "Comedy", Director = "Adam Mckay", PosterImageId = 14, PlotSynop = "Two aimless middle-aged losers still living at home are forced against their will to become roommates when their parents marry."  },
+                new Movie { MovieId = 15, Title = "Fallen Angels", Genre = "Comedy", Director = "Kar-Wai Wong", PosterImageId = 15, PlotSynop = "This Hong Kong-set crime drama follows the lives of a hitman, hoping to get out of the business, and his elusive female partner." }
              );
 
            
