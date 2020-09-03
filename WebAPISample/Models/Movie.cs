@@ -14,6 +14,7 @@ namespace WebAPISample.Models
         public string Title { get; set; }
         public string Genre { get; set; }
         public string Director { get; set; }
+        public string PlotSynop { get; set; }
 
         [ForeignKey("PosterImage")]
         public int? PosterImageId { get; set; }

@@ -5,6 +5,7 @@ $(document).ready(function () {
 });
 
 let storedData = [];
+let searchData = [];
 
 (function ($) {
     async function processForm(e) {
@@ -18,7 +19,7 @@ let storedData = [];
         let scrollRef;
 
         await $.ajax({
-            url: 'https://localhost:44325/api/movie',
+            url: 'http://71.11.153.207:9000/api/movie/',
             dataType: 'json',
             type: 'post',
             contentType: 'application/json',
@@ -45,9 +46,13 @@ let storedData = [];
 function displayCards() {
     $('#movieCardContainer').html('');
     $.each(storedData, function (index, value) {
-        let posterUrl = "poster_dumby.jpg"
+        let posterUrl = "poster_dumby.jpg";
+        let plot = "This has no Plot.";
         if (value.posterImage) {
             posterUrl = value.posterImage.posterLink;
+        }
+        if(value.plotSynop){
+            plot = value.plotSynop
         }
 
         $("#movieCardContainer").append(
@@ -61,12 +66,12 @@ function displayCards() {
                     
                 <div class="mb-1 text-muted">${value.director}</div>
 
-                <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                <button onclick="editmovie(${value.movieId})" class="btn-primary">View details</a>
+                <p class="card-text mb-auto">${plot}</p>
+                <button id="btn${value.movieId}" onclick="viewMovie(${value.movieId})" class="btn-primary">View details</a>
                 </div>
                 
-                <div class="col-4 d-none d-lg-block">
-                <img src="${posterUrl}" class="img-fluid" alt="movie poster for ${value.title}">
+                <div class="col-4 d-none d-lg-block ">
+                <img src="${posterUrl}" class="img-fluid float-right" alt="movie poster for ${value.title}">
                 </div>
             </div>
         </div>
@@ -75,6 +80,46 @@ function displayCards() {
     }
     )
 }
+
+function displaySearchCards(filteredMovies) {
+    $('#movieCardContainer').html('');
+    $.each(filteredMovies, function (index, value) {
+        let posterUrl = "poster_dumby.jpg"
+        let plot = "This has no Plot.";
+        if (value.posterImage) {
+            posterUrl = value.posterImage.posterLink;
+        }
+        if(value.plotSynop){
+            plot = value.plotSynop
+        }
+
+        $("#movieCardContainer").append(
+            `
+        <div id="${value.movieId}" class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                
+            <div class="col-8 p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">${value.genre}</strong>
+                <h3 class="mb-0">${value.title}</h3>
+                    
+                <div class="mb-1 text-muted">${value.director}</div>
+
+                <p class="card-text mb-auto">${plot}</p>
+                <button id="btn${value.movieId}" onclick="viewMovie(${value.movieId})" class="btn-primary">View details</a>
+                </div>
+                
+                <div class="col-4 d-none d-lg-block ">
+                <img src="${posterUrl}" class="img-fluid float-right" alt="movie poster for ${value.title}">
+                </div>
+            </div>
+        </div>
+        `
+        )
+    }
+    )
+}
+
+
 
 function sortCards(sortMethod) {
     storedData = sortMethod();
@@ -119,12 +164,12 @@ function sortTitleAlpha() {
     }
 }
 
-$('#alpha-title').click(function(){
-    sortCards(sortTitleAlpha);
-} );
-$('#reverse-alpha-title').click(function(){
+$('#alpha-title').click(function () {
+    sortCards(sortTitleAlphabetically);
+});
+$('#reverse-alpha-title').click(function () {
     sortCards(sortTitleReverseAlphabetically);
-} );
+});
 
 // Sort Movies by Genre Alphabetically/Reverse
 function sortTitleAlphabetically() {
@@ -161,8 +206,8 @@ function sortGenreAlpha() {
     }
 }
 
-//$('#alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
-//$('#reverse-alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
+$('#alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
+$('#reverse-alpha-genre').click(sortTitleReverseAlphabetically, sortCards);
 
 
 
@@ -175,7 +220,7 @@ function getAllMovies() {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'https://localhost:44325/api/movie',
+        url: 'http://71.11.153.207:9000/api/movie/',
         success: function () {
             $('#MovieTable').html('');
         },
@@ -194,7 +239,7 @@ function getMovieById(id) {
     return $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: 'https://localhost:44325/api/movie' + id,
+        url: 'http://71.11.153.207:9000/api/movie/' + id,
         success: function () {
             console.log("GET id Success.");
         },
@@ -220,20 +265,76 @@ function getMovieByIdLocal(id) {
 
 
 
+function viewMovie(id) {
+
+    $('.col-md-12').toggleClass("col-md-6 col-md-12");
+
+    var movie = getMovieByIdLocal(id);
+    console.log(movie.title);
+    $(`#${id}`).toggleClass("col-md-6 col-md-12");
+    if ($(`#btnEdit${movie.movieId}`).length) {
+        $('.editBtn').remove();
+        $('.formRemove').remove();
+        $('.col-md-12').toggleClass("col-md-6 col-md-12");
+    }
+    else {
+        $('.editBtn').remove();
+        $('.formRemove').remove();
+        $(`#btn${id}`).before(
+            `
+        <button id="btnEdit${movie.movieId}" onclick="editMovie(${movie.movieId})" class="btn-primary editBtn my-3">Edit details</a>
+        `
+        )
+    }
+}
+
+function editMovie(id) {
+
+    let movie = getMovieByIdLocal(id);
+    if(movie.plotSynop == null) {
+        movie.plotSynop = "No plot description available.";
+    }
+    
+    $(`#btnEdit${id}`).before(
+        `
+        <form id="editForm" class="form-group formRemove">
+            <input type="hidden" name="movieId" value="${movie.movieId}" />
+            <label>Title</label>
+            <input type="text" name="title" placeholder="${movie.title}" value="${movie.title}" class="form-control py-2"></input>
+            <label>Director</label>
+            <input type="text" name="director" placeholder="${movie.director}" value="${movie.director}" class="form-control py-2"/>
+            <label>Genre</label>
+            <input type="text" name="genre" placeholder="${movie.genre}" value="${movie.genre}" class="form-control py-2"/>
+            <label>Plot Synopsis</label>
+            <input type="text" name="plotSynop" placeholder="${movie.plotSynop}" value="${movie.plotSynop}" class="form-control py-2"/>
+            <button type="submit">Update Movie</button>
+        </form>
+        `
+    )
+    $("#editForm").submit(processEditMovieForm);
+    $('.editBtn').remove();
+}
+
+
+
+
 async function processEditMovieForm(e) {
+
+    let indexRef = parseInt(this["movieId"].value);
     var dataObj = {
         movieId: parseInt(this["movieId"].value),
         title: this["title"].value,
         genre: this["genre"].value,
         director: this["director"].value,
+        plotSynop: this["plotSynop"].value,
         posterImage: null,
         posterImageId: null
     }
     var outgoing = JSON.stringify(dataObj);
 
     e.preventDefault();
-    await jQuery.ajax({
-        url: 'https://localhost:44325/api/movie',
+    let updatedMovie = await jQuery.ajax({
+        url: 'http://71.11.153.207:9000/api/movie/',
         type: 'PUT',
         contentType: 'application/json',
         data: outgoing,
@@ -246,7 +347,34 @@ async function processEditMovieForm(e) {
         }
     })
 
-    getAllMovies();
+    storedData[indexRef] = updatedMovie;
+
+    let posterUrl = "poster_dumby.jpg"
+    if (updatedMovie.posterImage) {
+        posterUrl = updatedMovie.posterImage.posterLink;
+    }
+
+    $(`#${indexRef}`).html('');
+
+    $(`#${indexRef}`).append(
+        `
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            
+        <div class="col-8 p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">${updatedMovie.genre}</strong>
+            <h3 class="mb-0">${updatedMovie.title}</h3>
+                
+            <div class="mb-1 text-muted">${updatedMovie.director}</div>
+
+            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <button id="btn${updatedMovie.movieId}" onclick="viewMovie(${updatedMovie.movieId})" class="btn-primary">View details</a>
+            </div>
+            
+            <div class="col-4 d-none d-lg-block ">
+            <img src="${posterUrl}" class="img-fluid float-right" alt="movie poster for ${updatedMovie.title}">
+            </div>
+        </div>
+    `);
 
 }
 

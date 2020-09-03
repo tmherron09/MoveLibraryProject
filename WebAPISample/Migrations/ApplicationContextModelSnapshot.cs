@@ -32,6 +32,9 @@ namespace WebAPISample.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PlotSynop")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PosterImageId")
                         .HasColumnType("int");
 
@@ -50,6 +53,7 @@ namespace WebAPISample.Migrations
                             MovieId = 1,
                             Director = "Martin Scorsese",
                             Genre = "Drama",
+                            PlotSynop = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
                             PosterImageId = 1,
                             Title = "The Departed"
                         },
@@ -188,7 +192,7 @@ namespace WebAPISample.Migrations
                         new
                         {
                             PosterImageId = 1,
-                            PosterLink = "https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@.jpg"
+                            PosterLink = "https://m.media-amazon.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_UX182_CR0,0,182,268_AL_.jpg"
                         },
                         new
                         {

@@ -45,10 +45,11 @@
                     </div>
                     <hr/>
                     <div class="card-body">
-                        <form id="my-form">
-                            <input type="text" name="title" placeholder="Title"/>
-                            <input type="text" name="director" placeholder="Director"/>
+                        <form id="my-form row">
+                            <input type="text" name="title" placeholder="Title" />
+                            <input type="text" name="director" placeholder="Director" />
                             <input type="text" name="genre" placeholder="Genre"/>
+                            <input type="text" name="plotSynop" placeholder="Plot Synopsis" class="col-md-12 my-3"/>
                             <button type="submit">Add a new movie</button>
                         </form>
                     </div>
@@ -60,21 +61,27 @@
             -ms-user-select: none";
             user-select: none;>
                 <label>Sort By:</label>
-                <span id="alpha-title" style="display: inline;">
-                    Title
+                <span id="alpha-title" style="display: inline;" class="hvr-sweep-to-bottom py-1">
+                    Title Abc
                     <i class="fas fa-sort-alpha-down fa-lg"></i>
                 </span>
-                <span id="reverse-alpha-title" style="display: inline ;">
-                    Title
+                |
+                <span id="reverse-alpha-title" style="display: inline ;" class="hvr-sweep-to-top py-1" >
+                    Title Zyx
                     <i class="fas fa-sort-alpha-up-alt fa-lg"></i>
+                    
                 </span>
-                <span id="alpha-genre" style="display: none;">
-                    Genre
+                |
+                <span id="alpha-genre" style="display: inline;" class="hvr-sweep-to-bottom py-1">
+                    Genre Abc
                     <i class="fas fa-sort-alpha-down fa-lg"></i>
+                    
                 </span>
-                <span id="reverse-alpha-genre" style="display: inline ;">
-                    Genre
+                |
+                <span id="reverse-alpha-genre" style="display: inline ;" class="hvr-sweep-to-top py-1">
+                    Genre Zyx
                     <i class="fas fa-sort-alpha-up-alt fa-lg"></i>
+                    
                 </span>
             </div>
             <div id="movieCardContainer" class="row"></div>

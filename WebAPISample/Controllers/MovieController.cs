@@ -86,6 +86,8 @@ namespace WebAPISample.Controllers
             _context.PosterImages.Add(posterImage);
             _context.SaveChanges();
 
+            movie.PlotSynop = jsonString["plot"].ToString();
+
             var last = _context.PosterImages.OrderByDescending(p => p.PosterImageId).First();
             return last.PosterImageId;
         }
@@ -100,14 +102,15 @@ namespace WebAPISample.Controllers
 
             // Validation backup Check that incoming isn't empty or null, if it is, set to original value. Allows sending only one input to change.
             movieToUpdate.Title = (updatedMovie.Title == "" || updatedMovie.Title == null) ? movieToUpdate.Title : updatedMovie.Title;
-
             movieToUpdate.Director = (updatedMovie.Director == "" || updatedMovie.Director == null) ? movieToUpdate.Director : updatedMovie.Director;
-
             movieToUpdate.Genre = (updatedMovie.Genre == "" || updatedMovie.Genre == null) ? movieToUpdate.Genre : updatedMovie.Genre;
+            movieToUpdate.PosterImageId = (updatedMovie.PosterImageId == null) ? movieToUpdate.PosterImageId : updatedMovie.PosterImageId;
 
             _context.SaveChanges();
 
-            return Ok();
+            Movie updatedMovieInDb = _context.Movies.Where(m => m.MovieId == updatedMovie.MovieId).Include(m=> m.PosterImage).Single();
+
+            return Ok(updatedMovieInDb);
         }
 
         // DELETE api/movie/5

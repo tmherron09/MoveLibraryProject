@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebAPISample.Migrations
 {
-    public partial class INIT : Migration
+    public partial class initPlot : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,6 +30,7 @@ namespace WebAPISample.Migrations
                     Title = table.Column<string>(nullable: true),
                     Genre = table.Column<string>(nullable: true),
                     Director = table.Column<string>(nullable: true),
+                    PlotSynop = table.Column<string>(nullable: true),
                     PosterImageId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -48,7 +49,7 @@ namespace WebAPISample.Migrations
                 columns: new[] { "PosterImageId", "ImageData", "PosterLink" },
                 values: new object[,]
                 {
-                    { 1, null, "https://m.media-amazon.com/images/M/MV5BZjRlNDUxZjAtOGQ4OC00OTNlLTgxNmQtYTBmMDgwZmNmNjkxXkEyXkFqcGdeQXVyNzkwMjQ5NzM@.jpg" },
+                    { 1, null, "https://m.media-amazon.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_UX182_CR0,0,182,268_AL_.jpg" },
                     { 2, null, "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@.jpg" },
                     { 3, null, "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@.jpg" },
                     { 4, null, "https://m.media-amazon.com/images/M/MV5BMTY1MTE4NzAwM15BMl5BanBnXkFtZTcwNzg3Mjg2MQ@@.jpg" },
@@ -67,24 +68,24 @@ namespace WebAPISample.Migrations
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "MovieId", "Director", "Genre", "PosterImageId", "Title" },
+                columns: new[] { "MovieId", "Director", "Genre", "PlotSynop", "PosterImageId", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Martin Scorsese", "Drama", 1, "The Departed" },
-                    { 2, "Christopher Nolan", "Drama", 2, "The Dark Knight" },
-                    { 3, "Christopher Nolan", "Drama", 3, "Inception" },
-                    { 4, "David Gordon Green", "Comedy", 4, "Pineapple Express" },
-                    { 5, "John McTiernan", "Action", 5, "Die Hard" },
-                    { 6, "Takashii Miike", "Suspense", 6, "Audition" },
-                    { 7, "Takashii Miike", "Musical", 7, "Happieness of the Katakuri" },
-                    { 8, "Eric Till", "Comedy", 8, "Red Green: Duct Tape Forever" },
-                    { 9, "Norman Jewison", "Comedy", 9, "Send Me No Flowers" },
-                    { 10, "Joe Johnston", "Action", 10, "Captain America: The First Avenger" },
-                    { 11, "Johnathan Lynn", "Comedy", 11, "Clue" },
-                    { 12, "Stanley Donen", "Comedy", 12, "The Grass is Greener" },
-                    { 13, "JBlake Edwards", "Comedy", 13, "Operation Petticoat" },
-                    { 14, "Adam Mckay", "Comedy", 14, "Step Brothers" },
-                    { 15, "Kar-Wai Wong", "Comedy", 15, "Fallen Angels" }
+                    { 1, "Martin Scorsese", "Drama", "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.", 1, "The Departed" },
+                    { 2, "Christopher Nolan", "Drama", null, 2, "The Dark Knight" },
+                    { 3, "Christopher Nolan", "Drama", null, 3, "Inception" },
+                    { 4, "David Gordon Green", "Comedy", null, 4, "Pineapple Express" },
+                    { 5, "John McTiernan", "Action", null, 5, "Die Hard" },
+                    { 6, "Takashii Miike", "Suspense", null, 6, "Audition" },
+                    { 7, "Takashii Miike", "Musical", null, 7, "Happieness of the Katakuri" },
+                    { 8, "Eric Till", "Comedy", null, 8, "Red Green: Duct Tape Forever" },
+                    { 9, "Norman Jewison", "Comedy", null, 9, "Send Me No Flowers" },
+                    { 10, "Joe Johnston", "Action", null, 10, "Captain America: The First Avenger" },
+                    { 11, "Johnathan Lynn", "Comedy", null, 11, "Clue" },
+                    { 12, "Stanley Donen", "Comedy", null, 12, "The Grass is Greener" },
+                    { 13, "JBlake Edwards", "Comedy", null, 13, "Operation Petticoat" },
+                    { 14, "Adam Mckay", "Comedy", null, 14, "Step Brothers" },
+                    { 15, "Kar-Wai Wong", "Comedy", null, 15, "Fallen Angels" }
                 });
 
             migrationBuilder.CreateIndex(
