@@ -3,8 +3,56 @@ $(document).ready(function () {
     getAllMovies();
 
 });
+  
+// const searchBar = document.getElementById('searchBar');
+// const movieList = document.getElementById(movieList)
 
+
+console.log(searchBar);
 let storedData = [];
+searchBar.addEventListener('keyup', (e) => {
+    console.log(e);
+    searchString = e.target.value;
+    filteredMovies = storedData.filter(movie => {
+    let test = movie.title.toLowerCase().includes(searchString) || movie.director.toLowerCase().includes(searchString);
+    return test;
+    
+});
+
+    console.log(filteredMovies);
+    displaySearchCards(filteredMovies);
+
+});
+
+function displaySearchCards(filteredMovies) {
+    $('#movieCardContainer').html('');
+    $.each(filteredMovies, function (index, value) {
+        let posterUrl = "poster_dumby.jpg"
+        if (value.posterImage) {
+            posterUrl = value.posterImage.posterLink;
+        }
+        $("#movieCardContainer").append(
+            `
+        <div id="${value.movieId}" class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col-8 p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">${value.genre}</strong>
+                <h3 class="mb-0">${value.title}</h3>
+                <div class="mb-1 text-muted">${value.director}</div>
+                <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                <button id="btn${value.movieId}" onclick="viewMovie(${value.movieId})" class="btn-primary">View details</a>
+                </div>
+                <div class="col-4 d-none d-lg-block ">
+                <img src="${posterUrl}" class="img-fluid float-right" alt="movie poster for ${value.title}">
+                </div>
+            </div>
+        </div>
+        `
+        )
+    }
+    )
+}
+
 
 (function ($) {
     async function processForm(e) {
@@ -249,4 +297,3 @@ async function processEditMovieForm(e) {
     getAllMovies();
 
 }
-
