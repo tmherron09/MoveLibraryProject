@@ -66,9 +66,12 @@ namespace WebAPISample.Controllers
 
         private async Task<int> GetMoviePoster(Movie movie, PosterImage posterImage)
         {
+            // After removed key
+            string key = "**INSERT REF TO API KEY";
+
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("X-RapidAPI-Host", "imdb-internet-movie-database-unofficial.p.rapidapi.com");
-            client.DefaultRequestHeaders.Add("X-RapidAPI-Key", "***REMOVED***");
+            client.DefaultRequestHeaders.Add("X-RapidAPI-Key", key);
 
             string query = HttpUtility.UrlEncode(movie.Title);
             Uri posterRequest = new Uri("https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/" + query);
